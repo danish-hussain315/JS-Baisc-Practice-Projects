@@ -3,18 +3,19 @@ const userInput = document.querySelector('#guessField')
 const previousGuessSlot = document.querySelector('.guesses')
 const remaining = document.querySelector('.lastResult')
 const lowOrHi = document.querySelector('.lowOrHi')
-const resultParas = document.querySelector('.resultParas')
+const startOver = document.querySelector('.resultParas')
+const p = document.createElement('p')
 
 let randomNumber = parseInt(Math.random() * 100 +1 )
 console.log(randomNumber);
 
 
 let prevGuess = []
-let guessTimes =1
+let guessTimes =0
 let playGame = true
 
-if(playGame){
-  console.log("Welcom to the IF condition");
+if(playGame){  
+  console.log("Value of playGame : ", playGame);
   
   submit.addEventListener('click' , function(eventObject){
   eventObject.preventDefault()
@@ -33,12 +34,11 @@ function inputValidationForNumberConformation(currentNumber){
     alert("Please Enter Valid Number ")
   }else{
     prevGuess.push(currentNumber)
-    if(guessTimes === 11){
-      displayGuess(currentNumber)
+    if(guessTimes === 10){
+      // displayGuess(currentNumber)
       displayMessage(`Game Over. Guess Number was ${randomNumber}`)
       endGame()
-    }else{
-
+    }else if(guessTimes <= 9){       
       checkGuess(currentNumber)
       displayGuess(currentNumber)
     }
@@ -58,13 +58,34 @@ function checkGuess(guess){
 function displayGuess(guess){
   userInput.value = ''
   previousGuessSlot.innerHTML = previousGuessSlot.innerHTML +  `${guess} `
-  guessTimes++ 
-  remaining.innerHTML = `${11-guessTimes}`
-
+  remaining.innerHTML = `${10- (++guessTimes)}`   
 }
 function displayMessage(message){  
   lowOrHi.innerHTML = `<h2>${message}</h2>`
 }
 function endGame(){
-  // playGame = false
+  userInput.value = ""
+  userInput.setAttribute('disabled', true)
+  p.classList.add("button")
+  p.innerHTML = "<h2 id='new-game'>Start New Game</h2>"
+  startOver.appendChild(p)
+  playGame=false
+  newGame()
 }
+
+
+function newGame(){
+  const newGameButton = document.querySelector('#new-game')
+  newGameButton.addEventListener('click', function(eventObject){
+    randomNumber = parseInt(Math.random() * 100 +1 )
+    console.log(randomNumber);
+    
+    previousGuessSlot.innerHTML =''
+    guessTimes=0
+    remaining.innerHTML = `${11- (++guessTimes)}` 
+    userInput.removeAttribute('disabled')
+    startOver.removeChild(p)
+    playGame = true
+  })
+}
+
