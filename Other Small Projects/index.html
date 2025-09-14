@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Catching over Events</title>
+</head>
+<body>
+  <div class="main" style="width: 200px ; height: 200px; background-color: antiquewhite;"></div>
+</body>
+  <script>
+    const div = document.querySelector('.main')
+    div.addEventListener('click' , function(objectEvent){
+      
+      let ms = objectEvent.timeStamp; // milliseconds since page load
+  let totalSeconds = Math.floor(ms / 1000);
+
+  let hours = Math.floor(totalSeconds / 3600);
+  let minutes = Math.floor((totalSeconds % 3600) / 60);
+  let seconds = totalSeconds % 60;
+
+  console.log(
+    "Event time (since page load): " +
+    hours.toString().padStart(2, "0") + ":" +
+    minutes.toString().padStart(2, "0") + ":" +
+    seconds.toString().padStart(2, "0")
+  );
+      
+    }, false)
+  </script>
+</html>
