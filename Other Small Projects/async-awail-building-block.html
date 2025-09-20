@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="start">Start</button>
+  <button class="stop">Stop</button>
+</body>
+<script>
+  let intervalId
+  document.querySelector('.start').addEventListener("click" , ()=>{
+    intervalId = setInterval(()=>{
+      console.log("danish" , Date.now());
+            
+    } ,2000)
+  })
+  document.querySelector('.stop').addEventListener("click" , () => {
+    clearInterval(intervalId)
+  })
+</script>
+
+</html>
